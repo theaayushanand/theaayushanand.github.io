@@ -1,0 +1,282 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+  <title>Netmon | this is a tech blog</title>
+  <meta name="author" content="dmeg">
+  
+  <meta name="description" content="Port 80 has the PRTG Network Monitor running ."> 
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="Netmon"/>
+  <meta property="og:site_name" content="this is a tech blog"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+
+
+
+
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand" href="/">this is a tech blog</a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/archives" title="All the articles.">
+			  <i class=""></i>Archives
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/about" title="About me.">
+			  <i class=""></i>About
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/atom.xml" title="Subscribe me.">
+			  <i class=""></i>RSS
+			</a>
+		  </li>
+		  
+		</ul>
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+  	<div class="content">
+    	 
+
+
+	
+		<div class="page-header">
+			<h1> Netmon</h1>
+		</div>
+	
+
+
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div id="top_meta"></div>
+	<div class="col-md-9">
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  		
+
+	  <p><img src="/images/net1.png" alt="netmon"></p>
+<p>Port 80 has the PRTG Network Monitor running . </p>
+<a id="more"></a>
+
+<blockquote>
+<p>PRTG Network Monitor is an agentless network monitoring software from Paessler AG. It can monitor and classify system conditions like bandwidth usage or uptime and collect statistics from miscellaneous hosts as switches, routers, servers and other devices and applications.</p>
+</blockquote>
+<p>to start will try to check any known vulnerabilties or exploits on it . </p>
+<p>There is a <a target="_blank" rel="noopener" href="https://www.exploit-db.com/exploits/46527">(Authenticated) Remote Code Execution on PRTG Network Monitor 18.2.38 </a> but for that to work we need access to the credentials . should get clearer once we know the version . </p>
+<h3 id="Reconnaisance"><a href="#Reconnaisance" class="headerlink" title="Reconnaisance"></a>Reconnaisance</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">[*] Nmap: PORT      STATE    SERVICE      VERSION</span><br><span class="line">[*] Nmap: 21&#x2F;tcp    open     ftp          Microsoft ftpd</span><br><span class="line">[*] Nmap: 80&#x2F;tcp    open     http         Indy httpd 18.1.37.13946 (Paessler PRTG bandwidth monitor)</span><br><span class="line">[*] Nmap: 135&#x2F;tcp   open     msrpc        Microsoft Windows RPC</span><br><span class="line">[*] Nmap: 139&#x2F;tcp   open     netbios-ssn  Microsoft Windows netbios-ssn</span><br><span class="line">[*] Nmap: 445&#x2F;tcp   open     microsoft-ds Microsoft Windows Server 2008 R2 - 2012 microsoft-ds</span><br><span class="line">[*] Nmap: 3021&#x2F;tcp  filtered agriserver</span><br><span class="line">[*] Nmap: 3803&#x2F;tcp  filtered soniqsync</span><br><span class="line">[*] Nmap: 5985&#x2F;tcp  open     http         Microsoft HTTPAPI httpd 2.0 (SSDP&#x2F;UPnP)</span><br><span class="line">[*] Nmap: 11585&#x2F;tcp filtered unknown</span><br><span class="line">[*] Nmap: 12901&#x2F;tcp filtered unknown</span><br><span class="line">[*] Nmap: 18486&#x2F;tcp filtered unknown</span><br><span class="line">[*] Nmap: 20102&#x2F;tcp filtered unknown</span><br><span class="line">[*] Nmap: 21516&#x2F;tcp filtered unknown</span><br><span class="line">[*] Nmap: 22591&#x2F;tcp filtered unknown</span><br><span class="line">[*] Nmap: 29134&#x2F;tcp filtered unknown</span><br><span class="line">[*] Nmap: 46453&#x2F;tcp filtered unknown</span><br><span class="line">[*] Nmap: 47001&#x2F;tcp open     http         Microsoft HTTPAPI httpd 2.0 (SSDP&#x2F;UPnP)</span><br><span class="line">[*] Nmap: 49664&#x2F;tcp open     msrpc        Microsoft Windows RPC</span><br><span class="line">[*] Nmap: 49665&#x2F;tcp open     msrpc        Microsoft Windows RPC</span><br><span class="line">[*] Nmap: 49666&#x2F;tcp open     msrpc        Microsoft Windows RPC</span><br><span class="line">[*] Nmap: 49667&#x2F;tcp open     msrpc        Microsoft Windows RPC</span><br><span class="line">[*] Nmap: 49668&#x2F;tcp open     msrpc        Microsoft Windows RPC</span><br><span class="line">[*] Nmap: 49669&#x2F;tcp open     msrpc        Microsoft Windows RPC</span><br><span class="line">[*] Nmap: 54942&#x2F;tcp filtered unknown</span><br><span class="line">[*] Nmap: 65436&#x2F;tcp filtered unknown</span><br><span class="line">[*] Nmap: Service Info: OSs: Windows, Windows Server 2008 R2 - 2012; CPE: cpe:&#x2F;o:microsoft:windows</span><br><span class="line">[*] Nmap: Read data files from: &#x2F;usr&#x2F;bin&#x2F;..&#x2F;share&#x2F;nmap</span><br><span class="line">[*] Nmap: Service detection performed. Please report any incorrect results at https:&#x2F;&#x2F;nmap.org&#x2F;submit&#x2F; .</span><br><span class="line">[*] Nmap: Nmap done: 1 IP address (1 host up) scanned in 3218.74 seconds</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>port 21 has anonymous login enabled so will try that </p>
+<p><img src="/images/net2.png" alt="ftp"></p>
+<p>got the user file by iterating through a few directory</p>
+<p><img src="/images/net3.png" alt="user"></p>
+<p>should be the fastest user</p>
+<p>now for privilege escalation will check out files for the  <em>PRTG Network Monitor</em> on the ftp .</p>
+<p>there is a .bak file for the <em>PRTG Configuration</em> which could have user credentials .</p>
+<p><img src="/images/net4.png" alt="prtg"></p>
+<p>the file has credentials for the database which could have been reused on the portal . because thats how CTF challenges go </p>
+<p><img src="/images/net5.png" alt="creds"></p>
+<p>the above credentials worked with <em>2019</em> instead of <em>2018</em> .</p>
+<p><img src="/images/net6.png" alt="user"></p>
+<p>now that have the user can checkout the exploit we found in the beginning</p>
+<p>since the exploit needs an authenticated cookie with a lower privilege user , will extract it using burp.</p>
+<p><img src="/images/net7.png" alt="burp"></p>
+<p>running the exploit using the cookie </p>
+<p><img src="/images/net8.png" alt="exploit"></p>
+<p>as it says . exploit completed new admin user ‘pentest’ with password ‘P3nT3st!’</p>
+<p>logged in using the <a target="_blank" rel="noopener" href="https://github.com/SecureAuthCorp/impacket/blob/master/examples/psexec.py">impacket script</a><br>and got the root flag</p>
+<p><img src="/images/net9.png" alt="admin-login"></p>
+
+	  <div class="article-footer-copyright">
+
+    本博客采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank">知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议(CC BY-NC-SA 4.0) 发布.</a>
+</div>
+
+	</div>
+
+	
+	<span id="/2020/12/14/Netmon/" class="leancloud-visitors view" data-flag-title="Netmon">
+		<em class="post-meta-item-text"> Page View </em> <i class="leancloud-visitors-count"></i>
+	</span>
+	
+	<div>
+  	<center>
+
+	<div class="pagination">
+
+    
+    
+    <a type="button" class="btn btn-default disabled"><i class="fa fa-arrow-circle-o-left"></i>Prev</a>
+    
+
+    <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
+    
+    <a href="/2020/12/14/You know 0xdiablos/" type="button" class="btn btn-default ">Next<i
+                class="fa fa-arrow-circle-o-right"></i></a>
+    
+
+    
+</div>
+
+
+    </center>
+	</div>
+	
+	<!-- comment -->
+	<!--
+<section id="comment">
+    <h2 class="title">Comments</h2>
+
+    
+</section>
+
+-->
+	
+	</div> <!-- col-md-9/col-md-12 -->
+
+
+	
+	<div id="side_meta">
+		<div class="col-md-3" id="post_meta"> 
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	2020-12-14 
+	</div>
+	
+
+	<!-- categories -->
+    
+
+	<!-- tags -->
+	
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"></i></a>		  
+    <ul id="tags" class="tag_box list-unstyled collapse in">	  
+	    
+  <li><a href="/tags/HTB/">HTB<span>9</span></a></li> <li><a href="/tags/CTF/">CTF<span>9</span></a></li>
+    </ul>
+	</div>
+		
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	</div>
+	
+    <hr>
+	
+</div><!-- col-md-3 -->
+
+		
+
+	</div>
+	
+		
+
+</div><!-- row -->
+
+<!--
+ -->
+
+
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  
+  &copy; 2020 dmeg's Blog
+  
+        
+</p>
+ </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  
+<a id="gotop" href="#">   
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script> 
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+   <script type="text/javascript">      
+     var search_path = "search.xml";
+	 if (search_path.length == 0) {
+	 	search_path = "search.xml";
+	 }
+	 var path = "/" + search_path;
+     searchFunc(path, 'local-search-input', 'local-search-result');
+   </script>
+
+</body>
+   </html>
