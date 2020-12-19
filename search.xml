@@ -4,6 +4,29 @@
   
     
     <entry>
+      <title>Breach</title>
+      <link href="2020/12/19/Breach/"/>
+      <url>2020/12/19/Breach/</url>
+      
+        <content type="html"><![CDATA[<p><img src="/images/breach1.png" alt="breach"></p><p>There is an encrypted file and a txt file with a job post for web developer provided in the zip file along with a breached data dump of info about everybody who applied to the job .</p><a id="more"></a><p><img src="/images/breach2.png" alt="job"></p><p><img src="/images/breach3.png" alt="dump"></p><p>looking at the social media posts of the afforesaid company first . </p><p>found the HR</p><p><img src="/images/breach4.png" alt="HR"></p><p>searched for the HR’s name in the dump we have and found a hit. </p><p><img src="/images/breach5.png" alt="hr1"></p><p>will try to open the encrypted file with the password <code>Love!July2018</code> and its iterations .</p><p>March instead of July worked and can now read the file</p><p><img src="/images/breach6.png" alt="file"></p><p>decrypted the string with base64 and got the flag </p><p><img src="/images/breach7.png" alt="flag"></p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> HTB </tag>
+            
+            <tag> CTF </tag>
+            
+            <tag> OSINT </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Laboratory</title>
       <link href="2020/12/19/Laboratory/"/>
       <url>2020/12/19/Laboratory/</url>

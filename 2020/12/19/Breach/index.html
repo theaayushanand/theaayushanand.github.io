@@ -6,15 +6,15 @@
   <meta http-equiv="cache-control" content="no-cache">
   <meta http-equiv="expires" content="0">
   
-  <title>Templed | this is a tech blog</title>
+  <title>Breach | this is a tech blog</title>
   <meta name="author" content="dmeg">
   
-  <meta name="description" content="The zip file is unlocked by the password hackthebox,  as ridiculous as it is .anyways we move on and inside of the folder we get a Scroll.png of type Scroll.png: PNG image data, 580 x 78, 8-bit/color RGBA, non-interlaced ."> 
+  <meta name="description" content="There is an encrypted file and a txt file with a job post for web developer provided in the zip file along with a breached data dump of info about everybody who applied to the job ."> 
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta property="og:title" content="Templed"/>
+  <meta property="og:title" content="Breach"/>
   <meta property="og:site_name" content="this is a tech blog"/>
 
   
@@ -105,7 +105,7 @@
 
 	
 		<div class="page-header">
-			<h1> Templed</h1>
+			<h1> Breach</h1>
 		</div>
 	
 
@@ -122,20 +122,23 @@
 	<div class="mypage">		
 	  		
 
-	  <p><img src="/images/templed1.png" alt="Templed"></p>
-<p>The zip file is unlocked by the password <code>hackthebox</code>,  as ridiculous as it is .<br>anyways we move on and inside of the folder we get a Scroll.png of type <code>Scroll.png: PNG image data, 580 x 78, 8-bit/color RGBA, non-interlaced</code> .</p>
+	  <p><img src="/images/breach1.png" alt="breach"></p>
+<p>There is an encrypted file and a txt file with a job post for web developer provided in the zip file along with a breached data dump of info about everybody who applied to the job .</p>
 <a id="more"></a>
 
-<p> <img src="/images/templed2.png" alt="cipher"></p>
-<p>This is how our cipher looks like . upon further checking it is revealed that this is cypher of the monks and all these symbols stand for numbers . TIL do all kind of search possible , even image search . </p>
-<p><img src="/images/templed3.png" alt="meaning of symbols"></p>
-<p>we cab get numbers out of this </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">60 + 6 &#x3D; 66</span><br><span class="line"></span><br><span class="line">100 + 3 + 20 &#x3D; 123</span><br><span class="line"></span><br><span class="line">70 + 7 &#x3D; 77</span><br><span class="line"></span><br><span class="line">40 + 8 &#x3D; 48</span><br><span class="line"></span><br><span class="line">70 + 8 &#x3D; 78</span><br><span class="line"></span><br><span class="line">7 + 100 &#x3D; 107</span><br><span class="line"></span><br><span class="line">5 + 10 + 100 &#x3D; 115</span><br><span class="line"></span><br><span class="line">90 + 5 &#x3D; 95</span><br><span class="line"></span><br><span class="line">100 + 7 &#x3D; 107</span><br><span class="line"></span><br><span class="line">70 + 8 &#x3D; 78</span><br><span class="line"></span><br><span class="line">50 + 1 &#x3D; 51</span><br><span class="line"></span><br><span class="line">10 + 9 + 100 &#x3D; 119</span><br><span class="line"></span><br><span class="line">30 + 3 &#x3D; 33</span><br><span class="line"></span><br><span class="line">5 + 20 + 100 &#x3D; 125</span><br><span class="line"></span><br><span class="line">&#x3D; 72 84 66 123 77 48 78 107 115 95 107 78 51 119 33 125</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
-<p>This looks like ASCII . so lets put it in an online converter .</p>
-<p><img src="/images/templed4.png" alt="flag"></p>
-<p>thats it . this gives the flag</p>
-<p>HTB{M0Nks_kN3w!}</p>
+<p><img src="/images/breach2.png" alt="job"></p>
+<p><img src="/images/breach3.png" alt="dump"></p>
+<p>looking at the social media posts of the afforesaid company first . </p>
+<p>found the HR</p>
+<p><img src="/images/breach4.png" alt="HR"></p>
+<p>searched for the HR’s name in the dump we have and found a hit. </p>
+<p><img src="/images/breach5.png" alt="hr1"></p>
+<p>will try to open the encrypted file with the password <code>Love!July2018</code> and its iterations .</p>
+<p>March instead of July worked and can now read the file</p>
+<p><img src="/images/breach6.png" alt="file"></p>
+<p>decrypted the string with base64 and got the flag </p>
+<p><img src="/images/breach7.png" alt="flag"></p>
 
 	  <div class="article-footer-copyright">
 
@@ -145,7 +148,7 @@
 	</div>
 
 	
-	<span id="/2020/12/12/Templed/" class="leancloud-visitors view" data-flag-title="Templed">
+	<span id="/2020/12/19/Breach/" class="leancloud-visitors view" data-flag-title="Breach">
 		<em class="post-meta-item-text"> Page View </em> <i class="leancloud-visitors-count"></i>
 	</span>
 	
@@ -156,13 +159,12 @@
 
     
     
-    <a href="/2020/12/12/Weak RSA/" type="button" class="btn btn-default"><i
-                class="fa fa-arrow-circle-o-left"></i> Prev</a>
+    <a type="button" class="btn btn-default disabled"><i class="fa fa-arrow-circle-o-left"></i>Prev</a>
     
 
     <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
     
-    <a href="/2020/12/12/Money Flowz/" type="button" class="btn btn-default ">Next<i
+    <a href="/2020/12/19/Laboratory/" type="button" class="btn btn-default ">Next<i
                 class="fa fa-arrow-circle-o-right"></i></a>
     
 
@@ -194,7 +196,7 @@
 	
 	<div class="meta-widget">
 	<i class="fa fa-clock-o"></i>
-	2020-12-12 
+	2020-12-19 
 	</div>
 	
 
@@ -207,7 +209,7 @@
 	<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"></i></a>		  
     <ul id="tags" class="tag_box list-unstyled collapse in">	  
 	    
-  <li><a href="/tags/HTB/">HTB<span>11</span></a></li> <li><a href="/tags/CTF/">CTF<span>11</span></a></li> <li><a href="/tags/OSINT/">OSINT<span>4</span></a></li> <li><a href="/tags/CRYPTO/">CRYPTO<span>3</span></a></li>
+  <li><a href="/tags/HTB/">HTB<span>11</span></a></li> <li><a href="/tags/CTF/">CTF<span>11</span></a></li> <li><a href="/tags/OSINT/">OSINT<span>4</span></a></li>
     </ul>
 	</div>
 		
