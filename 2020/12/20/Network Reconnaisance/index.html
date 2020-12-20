@@ -158,14 +158,14 @@
 <h4 id="Scan-for-specefic-IP-range"><a href="#Scan-for-specefic-IP-range" class="headerlink" title="Scan for specefic IP range"></a>Scan for specefic IP range</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmap -sP <span class="variable">$RHOST</span>-100</span><br></pre></td></tr></table></figure>
 
 
-<h4 id="Knock-that-port"><a href="#Knock-that-port" class="headerlink" title="Knock that port"></a>Knock that port</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> x <span class="keyword">in</span> 7000 8000 9000; <span class="keyword">do</span> nmap -Pn --host_timeout 201 --max-retries 0 -p <span class="variable">$x</span> <span class="variable">$ip</span>; <span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+<h4 id="Knock-that-port"><a href="#Knock-that-port" class="headerlink" title="Knock that port"></a>Knock that port</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> x <span class="keyword">in</span> 7000 8000 9000; <span class="keyword">do</span> nmap -Pn --host_timeout 201 --max-retries 0 -p <span class="variable">$x</span> <span class="variable">$RHOST</span>; <span class="keyword">done</span></span><br></pre></td></tr></table></figure>
 
 
-<h4 id="Find-unused-IP-addresses-and-store-in-a-text-file"><a href="#Find-unused-IP-addresses-and-store-in-a-text-file" class="headerlink" title="Find unused IP addresses and store in a text file"></a>Find unused IP addresses and store in a text file</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmap -v -sn <span class="variable">$ip</span>/24 | grep down | awk <span class="string">&#x27;&#123;print $5&#125;&#x27;</span> &gt; filename.txt</span><br></pre></td></tr></table></figure>
+<h4 id="Find-unused-IP-addresses-and-store-in-a-text-file"><a href="#Find-unused-IP-addresses-and-store-in-a-text-file" class="headerlink" title="Find unused IP addresses and store in a text file"></a>Find unused IP addresses and store in a text file</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmap -v -sn <span class="variable">$RHOST</span>/24 | grep down | awk <span class="string">&#x27;&#123;print $5&#125;&#x27;</span> &gt; filename.txt</span><br></pre></td></tr></table></figure>
 
 <h4 id="Dont-Ping"><a href="#Dont-Ping" class="headerlink" title="Dont Ping"></a>Dont Ping</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmap -PN -vvv <span class="variable">$RHOST</span></span><br></pre></td></tr></table></figure>
 
-<h4 id="Grab-Banner"><a href="#Grab-Banner" class="headerlink" title="Grab Banner"></a>Grab Banner</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">telnet ip port</span><br><span class="line">nc -nv ip port</span><br><span class="line">curl -iv <span class="variable">$ip</span></span><br></pre></td></tr></table></figure>
+<h4 id="Grab-Banner"><a href="#Grab-Banner" class="headerlink" title="Grab Banner"></a>Grab Banner</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">telnet ip port</span><br><span class="line">nc -nv ip port</span><br><span class="line">curl -iv <span class="variable">$RHOST</span></span><br></pre></td></tr></table></figure>
 	  <div class="article-footer-copyright">
 
     本博客采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank">知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议(CC BY-NC-SA 4.0) 发布.</a>
@@ -185,7 +185,8 @@
 
     
     
-    <a type="button" class="btn btn-default disabled"><i class="fa fa-arrow-circle-o-left"></i>Prev</a>
+    <a href="/2020/12/20/Content Discovery/" type="button" class="btn btn-default"><i
+                class="fa fa-arrow-circle-o-left"></i> Prev</a>
     
 
     <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
@@ -235,7 +236,7 @@
 	<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"></i></a>		  
     <ul id="tags" class="tag_box list-unstyled collapse in">	  
 	    
-  <li><a href="/tags/RECONNAISANCE/">RECONNAISANCE<span>1</span></a></li> <li><a href="/tags/TOOLING/">TOOLING<span>1</span></a></li> <li><a href="/tags/METHODOLOGY/">METHODOLOGY<span>1</span></a></li> <li><a href="/tags/OSCP/">OSCP<span>1</span></a></li>
+  <li><a href="/tags/RECONNAISANCE/">RECONNAISANCE<span>2</span></a></li> <li><a href="/tags/TOOLING/">TOOLING<span>2</span></a></li> <li><a href="/tags/METHODOLOGY/">METHODOLOGY<span>2</span></a></li> <li><a href="/tags/OSCP/">OSCP<span>2</span></a></li>
     </ul>
 	</div>
 		
