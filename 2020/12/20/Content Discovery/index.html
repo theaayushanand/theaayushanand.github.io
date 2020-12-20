@@ -125,7 +125,8 @@
 	  <p>For discovering as much information about the web server once found, we need to bruteforce URLs, DNS subdomains and virtual hosts.</p>
 <a id="more"></a>
 
-<h2 id="Directory-scanning"><a href="#Directory-scanning" class="headerlink" title="Directory scanning"></a>Directory scanning</h2><h3 id="Gobuster"><a href="#Gobuster" class="headerlink" title="Gobuster"></a>Gobuster</h3><blockquote>
+
+<h3 id="Gobuster"><a href="#Gobuster" class="headerlink" title="Gobuster"></a>Gobuster</h3><blockquote>
 <p>Gobuster is a tool used to brute-force :- URIs (directories and files) in web sites, DNS subdomains (with wildcard support), Virtual Host names on target web servers, Open Amazon S3 buckets</p>
 </blockquote>
 <h4 id="Find-directories-and-files-Check-what-framework-application-is-using-and-set-values-for-x-flag-accordingly"><a href="#Find-directories-and-files-Check-what-framework-application-is-using-and-set-values-for-x-flag-accordingly" class="headerlink" title="Find directories and files . Check what framework application is using and set values for -x flag accordingly"></a>Find directories and files . Check what framework application is using and set values for <code>-x</code> flag accordingly</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gobuster dir -u <span class="variable">$RHOST</span> -w <span class="variable">$WORDLIST</span> -t 50 -x &lt;file_extensions&gt;</span><br></pre></td></tr></table></figure>
