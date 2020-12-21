@@ -76,19 +76,19 @@
 		  
 		  <li>
 			<a href="/archives" title="All the articles.">
-			  <i class=""></i>Archives
+			  <i class="fa fa-archive"></i>Archives
 			</a>
 		  </li>
 		  
 		  <li>
 			<a href="/about" title="About me.">
-			  <i class=""></i>About
+			  <i class="fa fa-user"></i>About
 			</a>
 		  </li>
 		  
 		  <li>
 			<a href="/atom.xml" title="Subscribe me.">
-			  <i class=""></i>RSS
+			  <i class="fa fa-rss"></i>RSS
 			</a>
 		  </li>
 		  
@@ -187,7 +187,8 @@
 
     
     
-    <a type="button" class="btn btn-default disabled"><i class="fa fa-arrow-circle-o-left"></i>Prev</a>
+    <a href="/2020/12/21/Privilege Escalation cheat sheet/" type="button" class="btn btn-default"><i
+                class="fa fa-arrow-circle-o-left"></i> Prev</a>
     
 
     <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
@@ -237,13 +238,19 @@
 	<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"></i></a>		  
     <ul id="tags" class="tag_box list-unstyled collapse in">	  
 	    
-  <li><a href="/tags/RECONNAISANCE/">RECONNAISANCE<span>2</span></a></li> <li><a href="/tags/TOOLING/">TOOLING<span>2</span></a></li> <li><a href="/tags/METHODOLOGY/">METHODOLOGY<span>2</span></a></li> <li><a href="/tags/OSCP/">OSCP<span>2</span></a></li> <li><a href="/tags/WEB/">WEB<span>2</span></a></li>
+  <li><a href="/tags/RECONNAISANCE/">RECONNAISANCE<span>2</span></a></li> <li><a href="/tags/TOOLING/">TOOLING<span>3</span></a></li> <li><a href="/tags/METHODOLOGY/">METHODOLOGY<span>3</span></a></li> <li><a href="/tags/OSCP/">OSCP<span>3</span></a></li> <li><a href="/tags/WEB/">WEB<span>2</span></a></li>
     </ul>
 	</div>
 		
 
 	<!-- toc -->
 	<div class="meta-widget">
+	
+	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i></a>
+	   <div id="toc" class="toc collapse in">
+		   <span class="toc-title">Contents</span>
+			<ol class="toc-article"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#Gobuster"><span class="toc-article-text">Gobuster</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#Find-directories-and-files-Check-what-framework-application-is-using-and-set-values-for-x-flag-accordingly"><span class="toc-article-text">Find directories and files . Check what framework application is using and set values for -x flag accordingly</span></a></li><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#Vhost-Mode-Finds-out-if-the-subdomain-exists-by-visiting-url-and-verifying-IP-address"><span class="toc-article-text">Vhost Mode (Finds out if the subdomain exists by visiting url and verifying IP address)</span></a></li><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#Find-subdomains-on-a-specific-domain"><span class="toc-article-text">Find subdomains on a specific domain</span></a></li><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#Gobuster-Thread-Switch"><span class="toc-article-text">Gobuster Thread Switch</span></a></li><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#Verbose"><span class="toc-article-text">Verbose</span></a></li><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#Change-user-agent-for-requests"><span class="toc-article-text">Change user agent for requests</span></a></li><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#Gobuster-export-results-to-txt"><span class="toc-article-text">Gobuster export results to txt</span></a></li></ol></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#ffuf"><span class="toc-article-text">ffuf</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#Directory-discovery"><span class="toc-article-text">Directory discovery</span></a></li><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#Virtual-host-discovery"><span class="toc-article-text">Virtual host discovery</span></a></li><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#GET-parameter-fuzzing"><span class="toc-article-text">GET parameter fuzzing</span></a></li><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#POST-data-fuzzing"><span class="toc-article-text">POST data fuzzing</span></a></li><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#Maximum-execution-time"><span class="toc-article-text">Maximum execution time</span></a></li></ol></li></ol>
+		</div>
 	
 	</div>
 	

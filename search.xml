@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>CTF Methodology - Privilege Escalation</title>
+      <link href="2020/12/21/Privilege%20Escalation%20cheat%20sheet/"/>
+      <url>2020/12/21/Privilege%20Escalation%20cheat%20sheet/</url>
+      
+        <content type="html"><![CDATA[<p>Devil is in the detail. He literally is , not kidding . Once limited shell is established on the system its a good idea tp escalate privileges . Because why wont you ?</p><a id="more"></a><p>Its a good idea to get to know the system we are working with first .</p><h3 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h3><h4 id="Check-distribution-type-and-version"><a href="#Check-distribution-type-and-version" class="headerlink" title="Check distribution type and version"></a>Check distribution type and version</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cat /etc/issue</span><br><span class="line">cat /etc/lsb-release      <span class="comment"># Debian based</span></span><br><span class="line">cat /etc/redhat-release   <span class="comment"># Redhat based</span></span><br></pre></td></tr></table></figure><h4 id="Check-kernel-version"><a href="#Check-kernel-version" class="headerlink" title="Check kernel version"></a>Check kernel version</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">rpm -q kernel</span><br><span class="line">dmesg | grep Linux</span><br><span class="line">cat /proc/version</span><br><span class="line">uname -a</span><br><span class="line">uname -mrs</span><br><span class="line">ls /boot | grep vmlinuz-</span><br></pre></td></tr></table></figure><h4 id="Check-env"><a href="#Check-env" class="headerlink" title="Check env"></a>Check env</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">cat /etc/profile</span><br><span class="line">cat /etc/bashrc</span><br><span class="line">cat ~/.bash_profile</span><br><span class="line">cat ~/.bashrc</span><br><span class="line">cat ~/.bash_logout</span><br><span class="line">env</span><br><span class="line"><span class="built_in">set</span></span><br></pre></td></tr></table></figure><h4 id="Check-what-ports-are-listening-from-inside"><a href="#Check-what-ports-are-listening-from-inside" class="headerlink" title="Check what ports are listening from inside"></a>Check what ports are listening from inside</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netstat -tulpn </span><br></pre></td></tr></table></figure><h4 id="Check-services-running-owned-by-root"><a href="#Check-services-running-owned-by-root" class="headerlink" title="Check services running owned by root"></a>Check services running owned by root</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ps aux | grep root</span><br><span class="line">ps -ef | grep root</span><br></pre></td></tr></table></figure><h4 id="Check-information-about-applications-installed"><a href="#Check-information-about-applications-installed" class="headerlink" title="Check information about applications installed"></a>Check information about applications installed</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">ls -alh /usr/bin/</span><br><span class="line">ls -alh /sbin/</span><br><span class="line">dpkg -l</span><br><span class="line">rpm -qa</span><br><span class="line">ls -alh /var/cache/apt/archivesO</span><br><span class="line">ls -alh /var/cache/yum/</span><br></pre></td></tr></table></figure><h4 id="Check-what-jobs-are-scheduled"><a href="#Check-what-jobs-are-scheduled" class="headerlink" title="Check what jobs are scheduled"></a>Check what jobs are scheduled</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">crontab -l</span><br><span class="line">ls -alh /var/spool/cron</span><br><span class="line">ls -al /etc/ | grep cron</span><br><span class="line">ls -al /etc/cron*</span><br><span class="line">cat /etc/cron*</span><br><span class="line">cat /etc/at.allow</span><br><span class="line">cat /etc/at.deny</span><br><span class="line">cat /etc/cron.allow</span><br><span class="line">cat /etc/cron.deny</span><br><span class="line">cat /etc/crontab</span><br><span class="line">cat /etc/anacrontab</span><br><span class="line">cat /var/spool/cron/crontabs/root</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> TOOLING </tag>
+            
+            <tag> METHODOLOGY </tag>
+            
+            <tag> OSCP </tag>
+            
+            <tag> EXPLOIT </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>CTF Methodology - Content Discovery</title>
       <link href="2020/12/20/Content%20Discovery/"/>
       <url>2020/12/20/Content%20Discovery/</url>
