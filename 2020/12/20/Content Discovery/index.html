@@ -150,7 +150,7 @@
 </blockquote>
 <h4 id="Directory-discovery"><a href="#Directory-discovery" class="headerlink" title="Directory discovery"></a>Directory discovery</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ffuf -w <span class="variable">$WORDLIST</span> -u https://target/FUZZ</span><br></pre></td></tr></table></figure>
 
-<h4 id="Virtual-host-discovery"><a href="#Virtual-host-discovery" class="headerlink" title="Virtual host discovery"></a>Virtual host discovery</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ffuf -w /path/to/vhost/wordlist -u https://target -H <span class="string">&quot;Host: FUZZ&quot;</span> -fs 4242</span><br></pre></td></tr></table></figure>
+<h4 id="Virtual-host-discovery"><a href="#Virtual-host-discovery" class="headerlink" title="Virtual host discovery"></a>Virtual host discovery</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ffuf -w <span class="variable">$WORDLIST</span> -u https://target -H <span class="string">&quot;Host: FUZZ&quot;</span> -fs 4242</span><br></pre></td></tr></table></figure>
 <ul>
 <li>Assuming respinse size is 4242 bytes</li>
 </ul>
@@ -165,7 +165,7 @@
 <h4 id="Maximum-execution-time"><a href="#Maximum-execution-time" class="headerlink" title="Maximum execution time"></a>Maximum execution time</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ffuf -w <span class="variable">$WORDLIST</span> -u https://<span class="variable">$RHOST</span>/FUZZ -maxtime 60</span><br></pre></td></tr></table></figure>
 
 <ul>
-<li>Meaning it wont run forever but start at 60 seconds</li>
+<li>Meaning it wont run forever but stop at 60 seconds</li>
 </ul>
 
 	  <div class="article-footer-copyright">
